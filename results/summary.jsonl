@@ -1,0 +1,17 @@
+{"model": "north/llama2-7b-DensityExperiment-PlayFiltered100-maxtext", "summary": {"Linguistic Average": 47.77, "Logical Average": 28.08}}
+{"model": "north/llama2-7b-DensityExperiment-FilteredNegative50-maxtext-10000", "summary": {"Linguistic Average": 55.48, "Logical Average": 32.23}}
+{"model": "north/llama2-7b-DensityExperiment-Filtered80-maxtext-10000", "summary": {"Linguistic Average": 42.36, "Logical Average": 31.05}}
+{"model": "north/llama2-7b-DensityExperiment-Filtered80-maxtext-20000", "summary": {"Linguistic Average": 45.41, "Logical Average": 30.44}}
+{"model": "NbAiLab/mimir-mistral-7b-books", "summary": {"Linguistic Average": 39.83, "Logical Average": 24.82}}
+{"model": "mimir-project/mimir-mistral-7b-base-scratch", "summary": {"Linguistic Average": 55.27, "Logical Average": 24.88}}
+{"model": "north/llama2-7b-DensityExperiment-Filtered100-maxtext", "summary": {"Linguistic Average": 54.22, "Logical Average": 31.95}}
+{"model": "north/llama2-7b-DensityExperiment-Filtered50-maxtext", "summary": {"Linguistic Average": 50.35, "Logical Average": 30.37}}
+{"model": "north/llama2-7b-DensityExperiment-Filtered50-maxtext-10000", "summary": {"Linguistic Average": 49.48, "Logical Average": 29.36}}
+{"model": "north/llama2-7b-DensityExperiment-Filtered100-maxtext-10000", "summary": {"Linguistic Average": 48.25, "Logical Average": 29.97}}
+{"model": "north/llama2-7b-DensityExperiment-FilteredNegative50-maxtext", "summary": {"Linguistic Average": 50.59, "Logical Average": 29.59}}
+{"model": "meta-llama/Llama-2-7b-hf", "summary": {"Linguistic Average": 45.87, "Logical Average": 32.04}}
+{"model": "norallm/normistral-7b-warm", "summary": {"Linguistic Average": 43.09, "Logical Average": 24.02}}
+{"model": "norallm/normistral-7b-warm-instruct", "summary": {"Linguistic Average": 45.05, "Logical Average": 27.21}}
+{"model": "north/llama2-7b-DensityExperiment-Filtered80-maxtext-40000", "summary": {"Linguistic Average": 52.28, "Logical Average": 28.31}}
+{"model": "north/llama2-7b-DensityExperiment-Filtered80-maxtext-50000", "summary": {"Linguistic Average": 50.72, "Logical Average": 27.96}}
+{"model": "north/llama2-7b-DensityExperiment-Filtered80-maxtext-30000", "summary": {"Linguistic Average": 52.49}}

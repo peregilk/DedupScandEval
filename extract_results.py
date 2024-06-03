@@ -1,29 +1,3 @@
-########################################
-# Script for Parsing ScandEval Results #
-########################################
-
-# The MIT License (MIT)
-#
-# Copyright (c) 2024 - Per Egil Kummervold
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-# IN THE SOFTWARE.
-
 import json
 import argparse
 import sys
@@ -43,8 +17,12 @@ expected_datasets_metrics = {
     "speed": "Not printed"
 }
 
-linguistic_datasets = ["norec", "scala-nn", "no-sammendrag"]
-logical_datasets = ["norquad", "mmlu-no", "hellaswag-no"]
+#linguistic_datasets = ["norec", "scala-nn", "no-sammendrag"]
+#logical_datasets = ["norquad", "mmlu-no", "hellaswag-no"]
+linguistic_datasets = ["norec", "scala-nn"]
+logical_datasets = ["mmlu-no", "hellaswag-no"]
+
+
 
 def extract_all_results(file_path, output_se, all_metrics):
     results_dict = {}
@@ -145,6 +123,26 @@ def calculate_summary(results_dict, output_se):
 
     return summary
 
+def save_jsonl_output(results_dict, summary, jsonl_output_file, jsonl_summary_file):
+    with open(jsonl_output_file, 'w') as file:
+        for model_name, data in results_dict.items():
+            for dataset, result in zip(data["Dataset"], data[model_name]):
+                line = {
+                    "model": model_name,
+                    "dataset": dataset,
+                    "result": result
+                }
+                file.write(json.dumps(line) + '\n')
+
+    if jsonl_summary_file:
+        with open(jsonl_summary_file, 'w') as file:
+            for model_name, scores in summary.items():
+                line = {
+                    "model": model_name,
+                    "summary": scores
+                }
+                file.write(json.dumps(line) + '\n')
+
 def format_markdown_table(results_dict):
     tables = []
     for model_name, data in results_dict.items():
@@ -174,13 +172,18 @@ def main():
     parser.add_argument("--all_metrics", action='store_true', help="Output all metrics instead of the default subset")
     parser.add_argument("--no-summary", action='store_true', help="Do not print summary of scores")
     parser.add_argument("--only-summary", action='store_true', help="Only print summary of scores")
-    
+    parser.add_argument("--jsonl_output_file", help="Path to the output JSONL file for results")
+    parser.add_argument("--jsonl_summary_file", help="Path to the output JSONL file for summary")
+
     args = parser.parse_args()
 
     results_dict, existing_models = extract_all_results(args.input_file, args.output_se, args.all_metrics)
 
     if not args.no_summary or args.only_summary:
         summary = calculate_summary(results_dict, args.output_se)
+
+    if args.jsonl_output_file:
+        save_jsonl_output(results_dict, summary, args.jsonl_output_file, args.jsonl_summary_file)
 
     if not args.only_summary:
         if args.markdown:
